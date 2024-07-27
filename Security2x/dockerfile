@@ -1,0 +1,3 @@
+FROM openjdk
+EXPOSE 8080
+ADD target/devops-integration
