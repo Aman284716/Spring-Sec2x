@@ -1,21 +1,34 @@
 package com.ust.Security2x.service;
 
+import com.ust.Security2x.model.Person;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class GroupUSerDetails implements UserDetails {
+public class GroupUserDetails implements UserDetails {
 
     private String username;
     private String password;
     private boolean isActive;
     private List<GrantedAuthority> authorities;
 
+    public GroupUserDetails(Person person){
+    this.username=person.getUsername();
+    this.password=person.getPassword();
+    this.isActive=person.isActive();
+    this.authorities= Arrays.stream(person.getRoles().split(","))
+            .map(SimpleGrantedAuthority::new)
+            .collect(Collectors.toList());
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return authorities;
     }
 
     @Override
@@ -30,17 +43,17 @@ public class GroupUSerDetails implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

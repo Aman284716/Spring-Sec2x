@@ -19,5 +19,5 @@ public class Project {
     private String psnumber;
     private String project;
     @Enumerated(value = EnumType.STRING)
-    private String projectstatus;
+    private ProjectStatus projectstatus;
 }

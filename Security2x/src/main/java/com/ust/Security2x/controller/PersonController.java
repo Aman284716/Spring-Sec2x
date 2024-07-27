@@ -19,7 +19,7 @@ public class PersonController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @PostMapping("/regivter")
+    @PostMapping("/register")
     public String registerperson(@RequestBody Person person){
         person.setRoles(PersonConstant.DEFAULT_ROLE);
         String encodedpassword = passwordEncoder.encode(person.getPassword());
